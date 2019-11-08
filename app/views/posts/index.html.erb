@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Item</th>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.user %></td>
+        <td><%= post.item %></td>
+        <td><%= post.content %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to ' || 댓글쓰기 - ', new_post_comment_path(post.id) %> 
+          <% post.comments.each do |c| %>
+            <%= c.memo %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to " || 좋아요! #{post.hearts.size} 개 - ", hearts_path(post.id) %> &nbsp;
+          <% post.hearts.each do |h| %>
+            <%= @users.find(h.user_id).email %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '홈으로 이동', root_path %>

@@ -1,0 +1,4 @@
+<%= form_for @comment, url: post_comments_path(@post.id), method: "POST" do |f| %>
+    내용: <%= f.text_field :memo %>
+    <%= f.submit "댓글쓰기" %>
+<% end %>
